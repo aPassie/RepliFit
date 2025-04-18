@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ConvexClerkProvider from "./provider/ConvexClerkProvider";
+import Background from "./components/Background";
+import {CustomNavbar} from "./components/NavBar";
+import Footer from "./components/Footer";
+
 
 
 
@@ -18,8 +22,13 @@ export default function RootLayout({
     <ConvexClerkProvider>
     <html lang="en">
       <body
-        className="pt-6">
-          {children}
+        className="pt-2">
+           <CustomNavbar/>
+          <Background />
+         <main>
+         {children}
+          </main> 
+          <Footer/>
       </body>
     </html>
     </ConvexClerkProvider>

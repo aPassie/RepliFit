@@ -1,0 +1,67 @@
+/* Define CSS Variables (in :root or a theme class) */
+:root {
+    --background: #050816; /* Example: Dark background */
+    --cyber-grid-color: rgba(45, 212, 191, 0.1); /* Example: Tealish, very dim */
+    --cyber-grid-color-enlarged: rgba(45, 212, 191, 0.25); /* Slightly brighter/different for effect */
+  
+    --grid-size-standard: 25px; /* Size of the normal grid */
+    --grid-size-enlarged: 75px; /* Size of the grid behind the cursor */
+    --magnify-area-size: 200px; /* Diameter of the enlarged area */
+  
+    /* Default/initial mouse position for the mask */
+    --mouse-x-px: 50%;
+    --mouse-y-px: 50%;
+  }
+  
+  body {
+    background-color: var(--background);
+  }
+  
+  /* Base background color layer */
+  .bg-background {
+    background-color: var(--background);
+  }
+  
+  /* Standard Grid Layer */
+  .standard-grid {
+    /* Ensure it repeats correctly */
+    background-repeat: repeat;
+    /* Prevents this layer from interfering with mouse events */
+    pointer-events: none;
+  }
+  
+  /* Enlarged Grid Layer (Masked) */
+  .enlarged-grid-masked {
+    background-repeat: repeat;
+    pointer-events: none;
+  
+    /* The core effect: Use a mask to reveal this layer only in a circle around the mouse */
+    mask-image: radial-gradient(
+      /* Shape and Size */
+      circle var(--magnify-area-size) at var(--mouse-x-px) var(--mouse-y-px),
+      /* Gradient: Opaque center (reveal), transparent edges (hide) */
+      black 0%,    /* Reveal fully at the center */
+      black 85%,   /* Keep revealed for most of the circle */
+      transparent 100% /* Fade to transparent quickly at the edge */
+    );
+    /* Include vendor prefix for wider browser support */
+    -webkit-mask-image: radial-gradient(
+      circle var(--magnify-area-size) at var(--mouse-x-px) var(--mouse-y-px),
+      black 0%,
+      black 85%,
+      transparent 100%
+    );
+  
+     /* Optional: Smooth mask movement (can sometimes be jerky, test performance) */
+     /* transition: mask-position 0.1s ease-out; */
+     /* -webkit-transition: -webkit-mask-position 0.1s ease-out; */
+     /* Note: It's generally smoother to transition the CSS vars if possible, */
+     /* but direct mask animation is often needed. */
+  }
+
+
+  
+  /* Ensure the main container can receive mouse events */
+  .fixed.inset-0 {
+    pointer-events: auto; /* Allows mousemove events on this container */
+  }
