@@ -6,6 +6,7 @@ import {
   AnimatePresence,
 
 } from "motion/react";
+import Link from "next/link";
 
 import React, { useState } from "react";
 
@@ -197,8 +198,8 @@ export const MobileNavToggle = ({
 
 export const NavbarLogo = () => {
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <div style={{
@@ -219,7 +220,7 @@ export const NavbarLogo = () => {
 </span>
 
 
-    </a>
+    </Link>
   );
 };
 
