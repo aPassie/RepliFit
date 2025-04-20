@@ -2,7 +2,7 @@ import { UserResource } from "@clerk/types";
 import CornerElements from "./CornerElements";
 
 const ProfileHeader = ({ user }: { user: UserResource | null | undefined }) => {
-  if (!user) return null;
+  if (!user) return null; // Return nothing if no user
   return (
     <div className="mb-10 relative backdrop-blur-sm border border-border  p-6">
       <CornerElements />
@@ -13,7 +13,7 @@ const ProfileHeader = ({ user }: { user: UserResource | null | undefined }) => {
             <div className="relative w-24 h-24 overflow-hidden rounded-lg">
               <img
                 src={user.imageUrl}
-                alt={user.fullName || "Profile"}
+                alt={user.fullName || "Profile"} // Use full name or fallback
                 className="w-full h-full object-cover"
               />
             </div>
@@ -30,16 +30,16 @@ const ProfileHeader = ({ user }: { user: UserResource | null | undefined }) => {
         <div className="flex-1">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
             <h1 className="text-3xl font-bold tracking-tight">
-              <span className="text-foreground">{user.fullName}</span>
+              <span className="text-foreground">{user.fullName}</span> {/* User's full name */}
             </h1>
             <div className="flex items-center bg-cyber-terminal-bg backdrop-blur-sm border border-border rounded px-3 py-1">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse mr-2"></div>
-              <p className="text-xs font-mono text-primary">USER ACTIVE</p>
+              <p className="text-xs font-mono text-primary">USER ACTIVE</p> {/* Status indicator */}
             </div>
           </div>
           <div className="h-px w-full bg-gradient-to-r from-primary via-secondary to-primary opacity-50 my-2"></div>
           <p className="text-muted-foreground font-mono">
-            {user.primaryEmailAddress?.emailAddress}
+            {user.primaryEmailAddress?.emailAddress} {/* User's email */}
           </p>
         </div>
       </div>

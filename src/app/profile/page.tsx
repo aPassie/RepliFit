@@ -18,21 +18,21 @@ import {
 } from "@/components/ui/accordion";
 
 const ProfilePage = () => {
-  const { user } = useUser();
+  const { user } = useUser(); // Get the current user
   const userId = user?.id as string;
 
-  const allPlans = useQuery(api.plans.getUserPlans, { userId });
+  const allPlans = useQuery(api.plans.getUserPlans, { userId }); // Fetch all plans for the user
   const [selectedPlanId, setSelectedPlanId] = useState<null | string>(null);
 
-  const activePlan = allPlans?.find((plan) => plan.isActive);
+  const activePlan = allPlans?.find((plan) => plan.isActive); // Find the active plan
 
   const currentPlan = selectedPlanId
     ? allPlans?.find((plan) => plan._id === selectedPlanId)
-    : activePlan;
+    : activePlan; // Use selected plan or fallback to active plan
 
   return (
     <section className="relative z-10 pt-12 pb-32 flex-grow container mx-auto px-4">
-      <ProfileHeader user={user} />
+      <ProfileHeader user={user} /> {/* Display user profile header */}
 
       {allPlans && allPlans?.length > 0 ? (
         <div className="space-y-8">
@@ -45,7 +45,7 @@ const ProfilePage = () => {
                 <span className="text-foreground">Fitness Plans</span>
               </h2>
               <div className="font-mono text-xs text-muted-foreground">
-                TOTAL: {allPlans.length}
+                TOTAL: {allPlans.length} {/* Show total number of plans */}
               </div>
             </div>
 
@@ -53,17 +53,16 @@ const ProfilePage = () => {
               {allPlans.map((plan) => (
                 <Button
                   key={plan._id}
-                  onClick={() => setSelectedPlanId(plan._id)}
-                  className={`text-foreground border hover:text-white ${
-                    selectedPlanId === plan._id
+                  onClick={() => setSelectedPlanId(plan._id)} // Select a plan
+                  className={`text-foreground border hover:text-white ${selectedPlanId === plan._id
                       ? "bg-primary/20 text-primary border-primary"
                       : "bg-transparent border-border hover:border-primary/50"
-                  }`}
+                    }`}
                 >
                   {plan.name}
                   {plan.isActive && (
                     <span className="ml-2 bg-green-500/20 text-green-500 text-xs px-2 py-0.5 rounded">
-                      ACTIVE
+                      ACTIVE {/* Mark active plan */}
                     </span>
                   )}
                 </Button>
@@ -80,7 +79,7 @@ const ProfilePage = () => {
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                 <h3 className="text-lg font-bold">
-                  PLAN: <span className="text-primary">{currentPlan.name}</span>
+                  PLAN: <span className="text-primary">{currentPlan.name}</span> {/* Plan name */}
                 </h3>
               </div>
 
@@ -108,7 +107,7 @@ const ProfilePage = () => {
                     <div className="flex items-center gap-2 mb-4">
                       <CalendarIcon className="h-4 w-4 text-primary" />
                       <span className="font-mono text-sm text-muted-foreground">
-                        SCHEDULE: {currentPlan.workoutPlan.schedule.join(", ")}
+                        SCHEDULE: {currentPlan.workoutPlan.schedule.join(", ")} {/* Workout schedule */}
                       </span>
                     </div>
 
@@ -121,7 +120,7 @@ const ProfilePage = () => {
                         >
                           <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-primary/10 font-mono">
                             <div className="flex justify-between w-full items-center">
-                              <span className="text-primary">{exerciseDay.day}</span>
+                              <span className="text-primary">{exerciseDay.day}</span> {/* Day */}
                               <div className="text-xs text-muted-foreground">
                                 {exerciseDay.routines.length} EXERCISES
                               </div>
@@ -137,7 +136,7 @@ const ProfilePage = () => {
                                 >
                                   <div className="flex justify-between items-start mb-2">
                                     <h4 className="font-semibold text-foreground">
-                                      {routine.name}
+                                      {routine.name} {/* Exercise name */}
                                     </h4>
                                     <div className="flex items-center gap-2">
                                       <div className="px-2 py-1 rounded bg-primary/20 text-primary text-xs font-mono">
@@ -150,7 +149,7 @@ const ProfilePage = () => {
                                   </div>
                                   {routine.description && (
                                     <p className="text-sm text-muted-foreground mt-1">
-                                      {routine.description}
+                                      {routine.description} {/* Exercise description */}
                                     </p>
                                   )}
                                 </div>
@@ -170,7 +169,7 @@ const ProfilePage = () => {
                         DAILY CALORIE TARGET
                       </span>
                       <div className="font-mono text-xl text-primary">
-                        {currentPlan.dietPlan.dailyCalories} KCAL
+                        {currentPlan.dietPlan.dailyCalories} KCAL {/* Calorie target */}
                       </div>
                     </div>
 
@@ -184,7 +183,7 @@ const ProfilePage = () => {
                         >
                           <div className="flex items-center gap-2 mb-3">
                             <div className="w-2 h-2 rounded-full bg-primary"></div>
-                            <h4 className="font-mono text-primary">{meal.name}</h4>
+                            <h4 className="font-mono text-primary">{meal.name} {/* Meal name */}</h4>
                           </div>
                           <ul className="space-y-2">
                             {meal.foods.map((food, foodIndex) => (
@@ -195,7 +194,7 @@ const ProfilePage = () => {
                                 <span className="text-xs text-primary font-mono">
                                   {String(foodIndex + 1).padStart(2, "0")}
                                 </span>
-                                {food}
+                                {food} {/* Food item */}
                               </li>
                             ))}
                           </ul>
@@ -209,7 +208,7 @@ const ProfilePage = () => {
           )}
         </div>
       ) : (
-        <NoFitnessPlan />
+        <NoFitnessPlan /> /* Show no fitness plan message */
       )}
     </section>
   );
